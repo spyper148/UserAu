@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('patronymic')->nullable();
             $table->string('login')->unique();
             $table->string('password');
-            $table->string('api_token');
+            $table->string('api_token')->nullable();
             $table->timestamps();
         });
     }

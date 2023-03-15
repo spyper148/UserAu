@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Middleware\EnsureTokenIsValid;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::get('posts',[PostsController::class,'index']);
 Route::post('user',[UserController::class,'store']);
 Route::post('login',[UserController::class,'login']);
+Route::middleware('token')->group(function ()
+{
+    Route::get('logout',[UserController::class,'logout']);
+    Route::get('show',[UserController::class,'show']);
+});
+
