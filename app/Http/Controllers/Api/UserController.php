@@ -57,7 +57,7 @@ class UserController extends Controller
         return response(new LogoutResource($request),200);
     }
 
-    protected function show()
+    protected function index()
     {
         $user = User::select('id','name','login')->get();
         return response(['date'=>[$user]],200);

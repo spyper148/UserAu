@@ -17,12 +17,12 @@ class EnsureTokenIsValid
     public function handle(Request $request, Closure $next): Response
     {
         $secret_token = $request->bearerToken();
-        $user = User::query()->where('api_token','=',$secret_token);
-        if(isset($user))
+        $user = User::query()->where('api_token','=',$secret_token)->first();
+        if(isset($user)&& $secret_token!=null)
         {
             return $next($request);
         }
-        return response((['code'=>401,'message'=>'authorization not successful']));
+        return response(['code'=>403,'message'=>'authorization not successful'],403);
 
     }
 }
