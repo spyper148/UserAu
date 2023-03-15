@@ -23,6 +23,6 @@ Route::post('login',[UserController::class,'login']);
 Route::middleware('token')->group(function ()
 {
     Route::get('logout',[UserController::class,'logout']);
-    Route::get('show',[UserController::class,'show']);
+    Route::get('index',[UserController::class,'index']);
 });
 
