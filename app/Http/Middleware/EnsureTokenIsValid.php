@@ -22,7 +22,7 @@ class EnsureTokenIsValid
         {
             return $next($request);
         }
-        return response(['code'=>403,'message'=>'authorization not successful'],403);
+        return response(['error'=>['code'=>403,'message'=>'authorization not successful']],403);
 
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiValidation;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\Index;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\LogoutResource;
 use App\Http\Resources\RegistrationResource;
@@ -59,8 +60,9 @@ class UserController extends Controller
 
     protected function index()
     {
-        $user = User::select('id','name','login')->get();
-        return response(['date'=>[$user]],200);
+
+        return Index::collection(User::all())->response()->setStatusCode(200);
+
     }
 
 }
