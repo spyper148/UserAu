@@ -2,64 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserOnShiftResource;
 use App\Models\UserOnShift;
 use Illuminate\Http\Request;
 
 class UserOnShiftController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $find_user = UserOnShift::query()
+            ->where('user_id','=',$request->user_id)
+            ->where('shift_id','=',$request->id)
+            ->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(UserOnShift $userOnShift)
-    {
-        //
-    }
+        if(isset($find_user))
+        {
+            return response(['error'=>['code'=>403,'message'=>'Forbidden. The worker is already on shift!']]);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserOnShift $userOnShift)
-    {
-        //
-    }
+            $user_on_shift = UserOnShift::forceCreate([
+                'shift_id' => $request->id,
+                'user_id' => $request->user_id,
+            ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, UserOnShift $userOnShift)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(UserOnShift $userOnShift)
-    {
-        //
+        return response(new UserOnShiftResource($user_on_shift),200);
     }
 }

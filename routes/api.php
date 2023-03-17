@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\UserOnShiftController;
 use App\Http\Controllers\WorkShiftController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::middleware('token')->group(function ()
     Route::post('work-shift',[WorkShiftController::class,'store']);
     Route::get('work-shift/{id}/open',[WorkShiftController::class, 'openShift']);
     Route::get('work-shift/{id}/close',[WorkShiftController::class, 'closeShift']);
+    Route::post('work-shift/{id}/user',[UserOnShiftController::class, 'store']);
 });
 
 
