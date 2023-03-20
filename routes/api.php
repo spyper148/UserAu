@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\UserOnShiftController;
-use App\Http\Controllers\WorkShiftController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\UserOnShiftController;
+use App\Http\Controllers\Api\WorkShiftController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Middleware\EnsureTokenIsValid;
 
 /*
 |--------------------------------------------------------------------------
