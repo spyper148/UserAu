@@ -46,4 +46,11 @@ class User extends Authenticatable
         return $this->hasMany(UserOnShift::class);
 
     }
+
+    public function order(): HasMany
+    {
+
+        $this->hasMany(Order::class);
+
+    }
 }

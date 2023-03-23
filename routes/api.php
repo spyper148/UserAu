@@ -28,6 +28,8 @@ Route::middleware('token')->group(function ()
     Route::get('work-shift/{id}/open',[WorkShiftController::class, 'openShift']);
     Route::get('work-shift/{id}/close',[WorkShiftController::class, 'closeShift']);
     Route::post('work-shift/{id}/user',[UserOnShiftController::class, 'store']);
+    Route::get('work-shift/{id}/order',[WorkShiftController::class, 'shiftOrders']);
+
 });
 
 

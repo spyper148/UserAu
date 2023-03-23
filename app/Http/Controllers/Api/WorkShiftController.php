@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OpenCloseWorkShiftResource;
+use App\Http\Resources\ShiftOrdersResource;
 use App\Http\Resources\WorkShiftResource;
+use App\Models\Order;
+use App\Models\OrderList;
 use App\Models\WorkShift;
 use Illuminate\Http\Request;
 
@@ -54,5 +57,13 @@ class WorkShiftController extends Controller
         }
 
 
+    }
+
+    public function shiftOrders(Request $request)
+    {
+      /*  $shift_orders = WorkShift::query()->where('id','=',$request->id);
+        return response(new ShiftOrdersResource($shift_orders),200);*/
+       /* dd(ShiftOrdersResource::collection(OrderList::all()));*/
+        return ShiftOrdersResource::collection(WorkShift::query()->where('id','=',$request->id)->get())->response()->setStatusCode(200);
     }
 }

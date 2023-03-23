@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WorkShift extends Model
 {
@@ -11,8 +12,18 @@ class WorkShift extends Model
 
     protected $fillable = ['start','end','active'];
 
-    public function shift()
+    public function shift(): HasMany
     {
         return $this->hasMany(UserOnShift::class);
+
     }
+
+    public function orders()
+    {
+
+        return $this->hasMany(Order::class);
+
+    }
+
+
 }

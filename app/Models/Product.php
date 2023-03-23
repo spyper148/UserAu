@@ -11,4 +11,11 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    public function product(): HasMany
+    {
+
+        $this->hasMany(OrderList::class);
+
+    }
+
 }
