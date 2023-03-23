@@ -21,7 +21,8 @@ class ShiftOrdersResource extends JsonResource
             'start' => $this->start,
             'end' => $this->end,
             'active' => $this->active,
-            'orders' => Sh
+            'orders' => OrdersContentResource::collection($this->order),
+            'amount_for_all' => 0,
         ];
     }
 }

@@ -15,14 +15,14 @@ class OrderList extends Model
     public function order(): BelongsTo
     {
 
-        $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class);
 
     }
 
     public function product(): BelongsTo
     {
 
-        $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class);
 
     }
 }

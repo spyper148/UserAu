@@ -16,35 +16,42 @@ class Order extends Model
     public function table(): BelongsTo
     {
 
-        $this->belongsTo(Table::class);
+        return $this->belongsTo(Table::class);
 
     }
 
     public function user(): BelongsTo
     {
 
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
 
     }
 
     public function shift(): BelongsTo
     {
 
-        $this->belongsTo(WorkShift::class);
+        return $this->belongsTo(WorkShift::class);
 
     }
 
     public function order(): HasMany
     {
 
-        $this->hasMany(OrderList::class);
+        return $this->hasMany(OrderList::class);
 
     }
 
     public function orders()
     {
 
-        $this->belongsTo(WorkShift::class);
+        return $this->belongsTo(WorkShift::class);
+
+    }
+
+    public function statusOrder(): BelongsTo
+    {
+
+        return $this->belongsTo(StatusOrder::class);
 
     }
 }

@@ -15,7 +15,7 @@ class Table extends Model
     public function order(): HasMany
     {
 
-        $this->hasMany(Order::class);
+        return $this->hasMany(Order::class);
 
     }
 }

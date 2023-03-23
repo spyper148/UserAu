@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserOnShiftController;
@@ -28,8 +29,7 @@ Route::middleware('token')->group(function ()
     Route::get('work-shift/{id}/open',[WorkShiftController::class, 'openShift']);
     Route::get('work-shift/{id}/close',[WorkShiftController::class, 'closeShift']);
     Route::post('work-shift/{id}/user',[UserOnShiftController::class, 'store']);
-    Route::get('work-shift/{id}/order',[WorkShiftController::class, 'shiftOrders']);
-
+    Route::get('work-shift/{shift}/order',[WorkShiftController::class, 'shiftOrders']);
 });
 
 

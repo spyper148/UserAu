@@ -14,7 +14,7 @@ class Product extends Model
     public function product(): HasMany
     {
 
-        $this->hasMany(OrderList::class);
+        return $this->hasMany(OrderList::class);
 
     }
 
