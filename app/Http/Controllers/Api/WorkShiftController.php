@@ -63,33 +63,26 @@ class WorkShiftController extends Controller
 
     public function shiftOrders(Request $request, WorkShift $shift)
     {
-        $orders = Order::where('work_shift_id',$shift->id)->first();
-        $orders_list = OrderList::where('order_id',$orders->id)->get();
+        $orders = Order::where('work_shift_id',$shift->id)->get();
         //$shift = $shift;
         $amount_for_all = 0;
-        foreach ($shift->orders as $item)
+      /*  foreach ($shift->orders as $item)
         {
             foreach ($item->order as $product)
             {
                 $amount_for_all+=$product->product->price;
             }
-        }
+        }*/
         //WorkShift::query()->where('id','=',$id)->first();
         return response([
             'id' => $shift->id,
             'start' => $shift->start,
             'end' => $shift->end,
             'active' => $shift->active,
-            'orders' => OrdersContentResource::collection($orders_list),
+            'orders' => OrdersContentResource::collection($orders),
             'amount_for_all' => $amount_for_all,
         ]);
 
-
-
-        /*  $shift_orders = WorkShift::query()->where('id','=',$request->id);
-          return response(new ShiftOrdersResource($shift_orders),200);*/
-        /* dd(ShiftOrdersResource::collection(OrderList::all()));*/
-        /* return ShiftOrdersResource::collection(WorkShift::query()->where('id','=',$request->id)->first())->response()->setStatusCode(200);*/
 
     }
 
