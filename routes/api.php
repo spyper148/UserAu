@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserOnShiftController;
 use App\Http\Controllers\Api\WorkShiftController;
+use App\Http\Middleware\EnsureTokenIsValid;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('posts',[PostsController::class,'index']);
 Route::post('user',[UserController::class,'store']);
 Route::post('login',[UserController::class,'login']);
-Route::middleware('token')->group(function ()
+
+Route::middleware(['token'=>'group:admin'])->group(function ()
 {
     Route::get('logout',[UserController::class,'logout']);
     Route::get('index',[UserController::class,'index']);
@@ -32,5 +34,6 @@ Route::middleware('token')->group(function ()
     Route::get('work-shift/{shift}/order',[WorkShiftController::class, 'shiftOrders']);
 });
 
+/*Route::middleware('')->group()*/
 
 

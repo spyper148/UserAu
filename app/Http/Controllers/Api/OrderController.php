@@ -11,5 +11,9 @@ use function Psy\sh;
 
 class OrderController extends Controller
 {
+    public function store(Request $request)
+    {
 
+
+    }
 }
