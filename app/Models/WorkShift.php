@@ -12,13 +12,13 @@ class WorkShift extends Model
 
     protected $fillable = ['start','end','active'];
 
-    public function shift(): HasMany
+    public function user0nShift(): HasMany
     {
         return $this->hasMany(UserOnShift::class);
 
     }
 
-    public function orders()
+    public function shift(): HasMany
     {
 
         return $this->hasMany(Order::class);

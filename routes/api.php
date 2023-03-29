@@ -34,6 +34,17 @@ Route::middleware(['token'=>'group:admin'])->group(function ()
     Route::get('work-shift/{shift}/order',[WorkShiftController::class, 'shiftOrders']);
 });
 
-/*Route::middleware('')->group()*/
+Route::middleware(['token'=>'group:waiter'])->group(function ()
+{
+    Route::post('order',[OrderController::class, 'store']);
+    Route::get('order/{id}',[OrderController::class,'order']);
+    Route::get('work-shift/{shift}/orders',[WorkShiftController::class, 'shiftOrders']);
+    Route::patch('order/{id}/change-status',[OrderController::class,'setStatus']);
+});
 
+Route::middleware(['token'=>'group:cook'])->group(function ()
+{
+   Route::get('taken',[OrderController::class,'orderTaken']);
+
+});
 

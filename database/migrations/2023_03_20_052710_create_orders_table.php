@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('work_shift_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_order_id');
-
+            $table->string('number_of_person',255);
             $table->timestamps();
 
             $table->foreign('table_id')->references('id')->on('tables');

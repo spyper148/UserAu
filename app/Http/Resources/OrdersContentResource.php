@@ -21,7 +21,8 @@ class OrdersContentResource extends JsonResource
         $price = 0;
         foreach ($products as $product)
         {
-            $price+=$product->product->price;
+
+            $price+=$product->product->price*$product->count;
 
         }
         return [

@@ -9,6 +9,8 @@ use App\Http\Resources\ShiftOrdersResource;
 use App\Http\Resources\WorkShiftResource;
 use App\Models\Order;
 use App\Models\OrderList;
+use App\Models\User;
+use App\Models\UserOnShift;
 use App\Models\WorkShift;
 use Illuminate\Http\Request;
 use function Symfony\Component\Routing\Loader\Configurator\collection;
@@ -63,25 +65,37 @@ class WorkShiftController extends Controller
 
     public function shiftOrders(Request $request, WorkShift $shift)
     {
+        $worker = User::where('api_token',$request->bearerToken())->first();
         $orders = Order::where('work_shift_id',$shift->id)->get();
-        $amount_for_all = 0;
-      foreach ($shift->orders as $item)
+        $user_on_shift = UserOnShift::where('shift_id',$shift->id)->get();
+        $waiter_on_shift=false;
+        foreach ($user_on_shift as $item)
         {
-            foreach ($item->order as $product)
-            {
-                $amount_for_all+=$product->product->price;
+            if($item->user_id==$worker->id){
+                $waiter_on_shift=true;
             }
         }
-        //WorkShift::query()->where('id','=',$id)->first();
-        return response([
-            'id' => $shift->id,
-            'start' => $shift->start,
-            'end' => $shift->end,
-            'active' => $shift->active,
-            'orders' => OrdersContentResource::collection($orders),
-            'amount_for_all' => $amount_for_all,
-        ]);
-
+        $amount_for_all = 0;
+        if($worker->group->name=='admin'||$waiter_on_shift==true)
+        {
+            foreach ($shift->orders as $item)
+            {
+                foreach ($item->order as $product)
+                {
+                    $amount_for_all+=$product->product->price*$product->count;
+                }
+            }
+            //WorkShift::query()->where('id','=',$id)->first();
+            return response([
+                'id' => $shift->id,
+                'start' => $shift->start,
+                'end' => $shift->end,
+                'active' => $shift->active,
+                'orders' => OrdersContentResource::collection($orders),
+                'amount_for_all' => $amount_for_all,
+            ]);
+        }
+        return response(['error'=>['code'=>403,'message'=>'Forbidden. You did not accept this order!']]);
 
     }
 

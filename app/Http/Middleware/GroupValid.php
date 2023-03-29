@@ -12,16 +12,25 @@ class GroupValid
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, $group): Response
     {
         $secret_token = $request->bearerToken();
-        $user = User::query()->where('api_token','=',$secret_token)->first();
-        if($user->group->name==$role)
+        if (isset($secret_token))
         {
-            return $next($request);
+            $user = User::query()->where('api_token', $secret_token)->first();
+            if ($user->group->name == $group)
+            {
+                return $next($request);
+
+            }
+
+            return response(['error' => ['code' => 403, 'message' => 'not enough rights']], 403);
+
         }
-       return response(['error'=>['code'=>403,'message'=>'not enough rights']],403);
+
+        return response(['error' => ['code' => 401, 'message' => 'authorization not successful']],401);
+
     }
 }
